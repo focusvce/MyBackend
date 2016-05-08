@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#009688</color>
+    <color name="colorPrimaryDark">#00796B</color>
+    <color name="colorAccent">#FF9800</color>
+    <color name="colorRegister">#FFFFFF</color>
+    <color name="colorLoginBackground">#E3E3E3</color>
+    <color name="colorLightPrimary">#B2DFDB</color>
+    <color name="colorTextIcon">#FFFFFF</color>
+    <color name="colorPrimayText">#212121</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorDivider">#B6B6B6</color>
+    <color name="material_login_register_color">@color/colorAccent</color>
+    <color name="material_login_register_error_color">#600002</color>
+
+    <color name="indigo_500">#ff4081</color>
+    <color name="accent_mix">#FF9800</color>
+    <color name="indigo_700">#303F9F</color>
+    <color name="colorErrorInput">#FFEB3B</color>
+    <color name="grey">#E2E2E2</color>
+    <color name="colorCenter">#00796B</color>
+    <color name="colorEnd">#00796B</color>
+    <color name="colorStart">#00796B</color>
+    <color name="overlay">#AA1C1C1C</color>
+    <color name="windowBackground">#1C1C1C</color>
+    <color name="divider">#333333</color>
+</resources>

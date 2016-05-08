@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MyBackend</string>
+    <string name="error_parser">Oops! Data Received Was An Unreadable Mess</string>
+    <string name="error_auth_failure">Oops! Focusvce Says It Doesn\'t Recognize You</string>
+    <string name="error_network">Oops! Focusvce Server Just Messed Up</string>
+    <string name="error_timeout">Oops! Your Connection Timed Out</string>
+    <string name="username">Name</string>
+    <string name="status_tagline">Coding brats...</string>
+    <string name="quila_name2">Name</string>
+    <string name="lorem">No description available!</string>
+    <string name="quila_tagline">Status</string>
+    <string name="quila_name">Name</string>
+</resources>

@@ -44,6 +44,7 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
     private ImageLoader imageLoader;
     private RequestQueue requestQueue;
     private MyApplication myApplication;
+     String user_id;
 
 
 
@@ -135,8 +136,8 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
                 final String USER_DETAILS_FOR_ACTIVITY = "http://focusvce.com/android/backend/details_test.php";
                 final int user_id_int = feedObject.getUid();
                 //convert into string for sending in the params
-                final String user_id = Integer.toString(user_id_int);
-                Log.e("User-id", user_id);
+                 user_id = Integer.toString(user_id_int);
+
                 // get the details and start the user activity with the details
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, USER_DETAILS_FOR_ACTIVITY, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -176,10 +177,10 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
                         params.put(KEY_UID,user_id);
+                        Log.e("User-id", params.get(KEY_UID));
                         return params;
 
                     }
-
 
                 };
 

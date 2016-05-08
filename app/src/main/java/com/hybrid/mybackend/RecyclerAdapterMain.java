@@ -31,9 +31,7 @@ import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by monster on 7/5/16.
- */
+
 public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMain.ViewholderNewsFeed> {
 
     public static final String KEY_UID = "user_id";
@@ -145,11 +143,11 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
                     public void onResponse(JSONObject response) {
                         try {
                             Log.e("MyResponse: ", response.toString());
-                                String u_name = feedObject.getUser_name();
+                                String u_name = response.getString("user_name");
                                 String u_email = response.getString("user_email");
                                 String u_status = response.getString("user_status");
                                 String u_description = response.getString("user_description");
-                                String u_pic = feedObject.getUser_pic();
+                                String u_pic = response.getString("user_pic");
                                 Intent intent = new Intent(myApplication.getApplicationContext(), UserProfile.class);
                                 intent.putExtra("USER_NAME", u_name);
                                 intent.putExtra("USER_STATUS", u_status);

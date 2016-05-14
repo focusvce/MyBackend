@@ -1,5 +1,6 @@
 package com.hybrid.mybackend;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -44,7 +45,8 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
     private ImageLoader imageLoader;
     private RequestQueue requestQueue;
     private MyApplication myApplication;
-     String user_id;
+    private String user_id;
+    private ProgressDialog mProgressDialog;
 
 
 
@@ -55,6 +57,13 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
         imageLoader = volleySingleton.getImageLoader();
         // below is for getting application context
         myApplication = MyApplication.getInstance();
+
+        //Progress Dialog
+        mProgressDialog = new ProgressDialog(context);
+        mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        mProgressDialog.setMessage("Loading...");
+        mProgressDialog.setIndeterminate(true);
+        mProgressDialog.setCancelable(false);
     }
 
     public void setFeed(ArrayList<NewsFeed> newsFeedArrayList){
@@ -132,6 +141,7 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
         holder.shared_by.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showProgressDialog();
                 Log.e("Touch:", "He touched");
                 final String USER_DETAILS_FOR_ACTIVITY = "http://focusvce.com/android/backend/details_test.php";
                 final int user_id_int = feedObject.getUid();
@@ -147,7 +157,6 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
                         JSONObject response = null;
                         try {
                             response = new JSONObject(serverResponse);
-                            Log.e("myResponse", response.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -208,6 +217,7 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
         if(!u_pic.isEmpty())
             intent.putExtra("USER_PIC", u_pic);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        hideProgressDialog();
         myApplication.startActivity(intent);
 
     }
@@ -265,5 +275,16 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
         };
         requestQueue.add(stringRequest);
     }
+
+    private void showProgressDialog() {
+        mProgressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.hide();
+        }
+    }
+
 
 }

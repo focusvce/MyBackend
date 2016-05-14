@@ -139,55 +139,21 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
                  user_id = Integer.toString(user_id_int);
 
                 // get the details and start the user activity with the details
-                JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, USER_DETAILS_FOR_ACTIVITY, null, new Response.Listener<JSONObject>() {
+
+
+                StringRequest request = new StringRequest(Request.Method.POST, USER_DETAILS_FOR_ACTIVITY, new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(String serverResponse) {
+                        JSONObject response = null;
                         try {
-                            Log.e("MyResponse: ", response.toString());
-                                String u_name = response.getString("user_name");
-                                String u_email = response.getString("user_email");
-                                String u_status = response.getString("user_status");
-                                String u_description = response.getString("user_description");
-                                String u_pic = response.getString("user_pic");
-                                Intent intent = new Intent(myApplication.getApplicationContext(), UserProfile.class);
-                                intent.putExtra("USER_NAME", u_name);
-                                intent.putExtra("USER_STATUS", u_status);
-                                intent.putExtra("USER_DESC", u_description);
-                                intent.putExtra("USER_EMAIL", u_email);
-                                intent.putExtra("USER_PIC", u_pic);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                myApplication.startActivity(intent);
-
-
+                            response = new JSONObject(serverResponse);
+                            Log.e("myResponse", response.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
+                        if(response != null)
+                            openTheUserActivity(response);
 
-
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("user-Activity(volley):", error.toString());
-
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() {
-                        Map<String, String> params = new HashMap<>();
-                        params.put(KEY_UID,user_id);
-                        Log.e("User-id", params.get(KEY_UID));
-                        return params;
-
-                    }
-
-                };
-
-                /*StringRequest request = new StringRequest(Request.Method.POST, USER_DETAILS_FOR_ACTIVITY, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.e("Response: ", response);
 
                     }
                 }, new Response.ErrorListener() {
@@ -204,12 +170,45 @@ public class RecyclerAdapterMain extends RecyclerView.Adapter<RecyclerAdapterMai
 
                     }
 
-                };*/
+                };
 
                 requestQueue.add(request);
 
             }
         });
+
+    }
+
+    private void openTheUserActivity(JSONObject response) {
+        String u_name = null,
+                u_email = null,
+                u_status = null,
+                u_description = null,
+                u_pic = null;
+        try {
+            u_name = response.getString("user_name");
+            u_email = response.getString("user_email");
+            u_status = response.getString("user_status");
+            u_description = response.getString("user_description");
+            u_pic = response.getString("user_pic");
+        } catch (JSONException e) {
+
+
+        }
+
+        Intent intent = new Intent(myApplication.getApplicationContext(), UserProfile.class);
+        if(!u_name.isEmpty())
+            intent.putExtra("USER_NAME", u_name);
+        if(!u_status.isEmpty())
+            intent.putExtra("USER_STATUS", u_status);
+        if(!u_description.isEmpty())
+            intent.putExtra("USER_DESC", u_description);
+        if(!u_email.isEmpty())
+            intent.putExtra("USER_EMAIL", u_email);
+        if(!u_pic.isEmpty())
+            intent.putExtra("USER_PIC", u_pic);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        myApplication.startActivity(intent);
 
     }
 
